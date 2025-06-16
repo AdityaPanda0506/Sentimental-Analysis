@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PieChart from './Components/PieChart';
 import BarChart from './Components/BarChart';
 import Report from './Components/Report';
@@ -7,7 +7,13 @@ import FilterDropdown from './Components/FilterDropdown';
 
 function App() {
   const [input, setInput] = useState("");
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState(() => {
+  const savedResults = localStorage.getItem("analysisResults");
+  return savedResults ? JSON.parse(savedResults) : [];
+  });
+  useEffect(() => {
+  localStorage.setItem("analysisResults", JSON.stringify(results));
+  }, [results]);
   const [showChart, setShowChart] = useState("bar"); // bar / pie / none
   const [view, setView] = useState("analysis"); // analysis / report
 

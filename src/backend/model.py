@@ -9,13 +9,15 @@ from spacy.lang.en.stop_words import STOP_WORDS
 
 # OpenAI-compatible API setup
 import openai
+from dotenv import load_dotenv
+import os
 
-# Replace this with your actual API key
-API_KEY = "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"
+load_dotenv()  # This loads the .env file
 
-# Set up OpenRouter API client
+API_KEY = os.getenv("OPENROUTER_API_KEY")
+
 client = openai.OpenAI(
-    base_url="https://openrouter.ai/api/v1", 
+    base_url="https://openrouter.ai/api/v1",    
     api_key=API_KEY
 )
 
